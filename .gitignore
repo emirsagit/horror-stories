@@ -1,15 +1,51 @@
-/node_modules
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
-.env
-.env.backup
-.phpunit.result.cache
-docker-compose.override.yml
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
-/.idea
-/.vscode
+/horror-api/node_modules
+/horror-api/public/hot
+/horror-api/public/storage
+/horror-api/storage/*.key
+/horror-api/vendor
+/horror-api/.env
+/horror-api/.env.backup
+/horror-api/.phpunit.result.cache
+/horror-api/docker-compose.override.yml
+/horror-api/Homestead.json
+/horror-api/Homestead.yaml
+/horror-api/npm-debug.log
+/horror-api/yarn-error.log
+/horror-api/.idea
+/horror-api/.vscode
+
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/horror-client/node_modules
+/horror-client/.pnp
+/horror-client.pnp.js
+
+# testing
+/horror-client/coverage
+
+# next.js
+/horror-client/.next/
+/horror-client/out/
+
+# production
+/horror-client/build
+
+# misc
+/horror-client.DS_Store
+/horror-client*.pem
+
+# debug
+/horror-conteinernpm-debug.log*
+/horror-conteineryarn-debug.log*
+/horror-conteineryarn-error.log*
+
+# local env files
+/horror-client.env.local
+/horror-client.env.development.local
+/horror-client/env.test.local
+/horror-client/env.production.local
+
+# vercel
+/horror-client.vercel
