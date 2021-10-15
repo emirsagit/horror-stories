@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->group(function () {
     // Authentication...
     Route::get('/user', function (Request $request) {
-        return $request->user();
+        return new UserResource(auth()->user());
     });
 });
     // Password Reset...
