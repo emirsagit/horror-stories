@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logout } from "..";
 
 export default function layout({ children, ...restProps }) {
   return (
@@ -6,8 +7,12 @@ export default function layout({ children, ...restProps }) {
       <header>
         <nav>
           <Link href="/login">
-            <a>Login</a>
+            <a>Giriş</a>
           </Link>
+          <Link href="/register">
+            <a>Kayıt</a>
+          </Link>
+          <Logout />
         </nav>
       </header>
       <main>{children}</main>

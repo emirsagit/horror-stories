@@ -11,6 +11,7 @@ use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use Illuminate\Support\Facades\RateLimiter;
 use Laravel\Fortify\Contracts\LoginResponse as LoginResponseContract;
+use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Http\Resources\User\UserResource;
 
@@ -30,6 +31,14 @@ class FortifyServiceProvider extends ServiceProvider
                 return new UserResource($request->user());
             }
         });
+
+        $this->app->instance(RegisterResponse::class, new class implements RegisterResponseContract
+        {
+            public function toResponse($request)
+            {
+                return new UserResource($request->user());
+            }
+        });
     }
 
     /**
@@ -40,6 +49,7 @@ class FortifyServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->singleton(LoginResponseContract::class, LoginResponse::class);
+        $this->app->singleton(RegisterResponseContract::class, RegisterResponse::class);
 
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
