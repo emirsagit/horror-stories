@@ -1,5 +1,0 @@
-import 
-
-export function RedirectIfAuth () {
-
-}

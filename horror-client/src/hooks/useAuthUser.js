@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import api from "../utils/api";
 
-export default function authUser() {
+export default function useAuthUser() {
   const [user, setUser] = useState("");
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     api()
@@ -16,5 +15,5 @@ export default function authUser() {
       });
   }, []);
 
-  return [user, setUser, loading, setLoading];
+  return [user, setUser];
 }
