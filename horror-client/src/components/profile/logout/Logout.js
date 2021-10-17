@@ -1,6 +1,6 @@
-import api from "../../utils/api";
+import api from "../../../utils/api";
 import { useContext } from "react";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "../../../context/UserContext";
 
 export default function Logout() {
   const { setUser } = useContext(UserContext);
@@ -15,5 +15,5 @@ export default function Logout() {
       .catch((error) => console.log(error));
   }
 
-  return <button onClick={handleClick}>Çıkış Yap</button>;
+  return <button onClick={handleClick}>Çıkış</button>;
 }

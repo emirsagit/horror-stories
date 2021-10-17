@@ -1,8 +1,12 @@
 <?php
 
-use App\Http\Resources\User\UserResource;
+use App\Http\Controllers\Profile\ProfileImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Resources\User\UserResource;
+use App\Http\Controllers\TokenAuth\LoginController;
+use App\Http\Controllers\TokenAuth\LogoutController;
+use App\Http\Controllers\TokenAuth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +19,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/**
+ * Token based auth
+ */
+Route::post('/login', [LoginController::class, 'store']);
+
+Route::post('/register', [RegisteredUserController::class, 'store'])
+    ->middleware(['guest:' . config('fortify.guard')]);
+
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    // Authentication...
+    Route::post('/logout', [LogoutController::class, 'destroy'])
+        ->name('logout');
+});
+
+
+
 Route::middleware('auth:sanctum')->group(function () {
     // Authentication...
     Route::get('/user', function (Request $request) {
         return new UserResource(auth()->user());
     });
+    Route::post('/user/profile/image', [ProfileImageController::class, 'store']);
 });
     // Password Reset...
 

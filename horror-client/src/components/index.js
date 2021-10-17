@@ -1,2 +1,2 @@
 export { default as Layout } from "./layout/Layout";
-export { default as Logout } from "./logout/Logout";
+export { default as Profile } from "./profile/Profile";

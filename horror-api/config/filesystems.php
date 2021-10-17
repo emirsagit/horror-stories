@@ -35,10 +35,24 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'public_folder' => [
+            'driver' => 'local',
+            'root' => public_path('images'),
+            'url' => env('APP_URL') . '/images',
+            'visibility' => 'public',
+        ],
+
+        'avatars_folder' => [
+            'driver' => 'local',
+            'root' => public_path('images/avatars'),
+            'url' => env('APP_URL') . '/images/avatars',
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
 
