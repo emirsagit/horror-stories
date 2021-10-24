@@ -15,5 +15,5 @@ export default function Logout() {
       .catch((error) => console.log(error));
   }
 
-  return <button onClick={handleClick}>Çıkış</button>;
+  return <button className="hover:bg-gray-100 w-full" onClick={handleClick}>Çıkış</button>;
 }

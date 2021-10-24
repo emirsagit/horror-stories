@@ -1,12 +1,15 @@
 <?php
 
-use App\Http\Controllers\Profile\ProfileImageController;
 use Illuminate\Http\Request;
+use Laravel\Fortify\Features;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\User\UserResource;
 use App\Http\Controllers\TokenAuth\LoginController;
 use App\Http\Controllers\TokenAuth\LogoutController;
+use App\Http\Controllers\Profile\ProfileImageController;
+use App\Http\Controllers\TokenAuth\VerifyEmailController;
 use App\Http\Controllers\TokenAuth\RegisteredUserController;
+use App\Http\Controllers\TokenAuth\EmailVerificationNotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +22,7 @@ use App\Http\Controllers\TokenAuth\RegisteredUserController;
 |
 */
 
+
 /**
  * Token based auth
  */
@@ -27,22 +31,30 @@ Route::post('/login', [LoginController::class, 'store']);
 Route::post('/register', [RegisteredUserController::class, 'store'])
     ->middleware(['guest:' . config('fortify.guard')]);
 
+$verificationLimiter = config('fortify.limiters.verification', '6,1');
 
+Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+    ->middleware(['signed', 'throttle:' . $verificationLimiter])->name('verification.verify');
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function () use ($verificationLimiter) {
     // Authentication...
     Route::post('/logout', [LogoutController::class, 'destroy'])
         ->name('logout');
+    // Email Verification...
+    if (Features::enabled(Features::emailVerification())) {
+
+        // Send link to verify email
+        Route::post('/email/verify', [EmailVerificationNotificationController::class, 'store'])->middleware(['throttle:' . $verificationLimiter]);
+    }
 });
 
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    // Authentication...
+    Route::post('/user/profile/image', [ProfileImageController::class, 'store']);
     Route::get('/user', function (Request $request) {
         return new UserResource(auth()->user());
     });
-    Route::post('/user/profile/image', [ProfileImageController::class, 'store']);
 });
     // Password Reset...
 

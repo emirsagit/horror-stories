@@ -67,7 +67,7 @@ export default function Login() {
             GÖNDER
           </button>
           <a href="#" className="w-full py-2 cursor-pointer border-gray-500 border mt-4 text-center rounded-md font-bold tracking-wider bg-white flex items-center justify-center" rel="noopener">
-            <Image src="/svgs/google.svg" width={16} height={16} layout="fixed" alt="google" /> <span className="ml-0.5">oogle ile giriş</span>
+            <img src="/svgs/google.svg" width={16} height={16} alt="google" /> <span className="ml-0.5">oogle ile giriş</span>
           </a>
           <Link href="/register">
             <a className="text-gray-700 w-full block mt-4  text-sm cursor-pointer text-left rounded-md font-semibold tracking-wider">
