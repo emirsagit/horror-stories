@@ -51,9 +51,9 @@ export default function Login() {
 
   return (
     <Layout>
-      <div className="w-90 m-auto max-w-2xl mt-12 min-h-screen">
+      <>
         <h1 className="text-2xl lg:text-3xl text-center mb-4 font-bold tracking-wide">Giriş Yap 👍</h1>
-        <form className="w-90 m-auto max-w-lg w-11/12" onSubmit={(e) => handleSubmit(e)}>
+        <form className="max-w-lg m-auto" onSubmit={(e) => handleSubmit(e)}>
           <label htmlFor="email" className="block text-sm text-gray-500">
             E-posta Adresiniz:
           </label>
@@ -75,7 +75,7 @@ export default function Login() {
             </a>
           </Link>
         </form>
-      </div>
+      </>
     </Layout>
   );
 }

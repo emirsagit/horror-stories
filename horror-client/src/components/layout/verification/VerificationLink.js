@@ -1,11 +1,12 @@
 import api from "../../../utils/api";
-import { BASE_URL } from "../../../constants/env";
+import { CLIENT_BASE_URL } from "../../../constants/env";
+import { REDIRECT_AFTER_VERIFICATION } from "../../../constants/routes";
 
 export default function VerificationLink() {
   function handleClick() {
     api()
       .post("/api/email/verify", {
-        redirect_url: BASE_URL,
+        redirect_url: CLIENT_BASE_URL + REDIRECT_AFTER_VERIFICATION.url,
       })
       .then((response) => {
         console.log(response);

@@ -19,7 +19,7 @@ export default function Navigation() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
-          <div className={showLinks ? "fixed pt-4 right-1/3 left-0 bottom-0 z-50 top-0 bg-white border-r-2 border-blue-900 flex flex-col pl-2" : "hidden" + " md:flex md:flex-row gap-4"}>
+          <div className={(showLinks ? "fixed pt-4 right-1/3 left-0 bottom-0 z-50 top-0 bg-white border-r-2 border-blue-900 flex flex-col pl-2" : "hidden") + " md:flex md:flex-row gap-4"}>
             <button aria-label="close" className="self-end pr-4 md:hidden" onClick={() => setShowLinks(false)}>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18 18 6M6 6l12 12" />

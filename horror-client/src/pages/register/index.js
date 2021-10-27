@@ -3,11 +3,15 @@ import { Layout } from "../../components";
 import { useContext } from "react";
 import api from "../../utils/api";
 import { UserContext } from "../../context/UserContext";
+import { NotificationContext } from "../../context/NotificationContext";
 import { useErrorMessage } from "../../hooks";
 import Link from "next/link";
+import { REDIRECT_AFTER_VERIFICATION } from "../../constants/routes";
+import { CLIENT_BASE_URL } from "../../constants/env";
 
 export default function Register() {
   const { setUser } = useContext(UserContext);
+  const { changeNotificationMessage } = useContext(NotificationContext);
 
   const formFields = { name: "", email: "", password: "", password_confirmation: "" };
 
@@ -39,9 +43,11 @@ export default function Register() {
             email: form.email,
             password: form.password,
             password_confirmation: form.password_confirmation,
+            redirect_url: CLIENT_BASE_URL + REDIRECT_AFTER_VERIFICATION.url,
           })
           .then(({ data }) => {
             setUser(data);
+            changeNotificationMessage("Hoşgeldiniz, mail adresinize üyeliğinizi onaylamak için mail gönderdik...");
           })
           .catch((error) => {
             handleErrorMessages(error.response.data.errors);
@@ -52,9 +58,9 @@ export default function Register() {
 
   return (
     <Layout>
-      <div className="w-90 m-auto max-w-2xl mt-12 min-h-screen">
+      <>
         <h1 className="text-2xl lg:text-3xl text-center mb-4 font-bold tracking-wide">Kayıt Ol 👍</h1>
-        <form className="w-90 m-auto max-w-lg w-11/12" onSubmit={(e) => handleSubmit(e)}>
+        <form className="max-w-lg m-auto" onSubmit={(e) => handleSubmit(e)}>
           <label htmlFor="name" className="block text-sm text-gray-500">
             Adınız:
           </label>
@@ -81,7 +87,7 @@ export default function Register() {
             </a>
           </Link>
         </form>
-      </div>
+      </>
     </Layout>
   );
 }
