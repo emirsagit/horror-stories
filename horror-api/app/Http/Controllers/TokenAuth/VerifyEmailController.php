@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Verified;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Requests\EmailVerificationRequest;
 
 class VerifyEmailController extends Controller
 {
@@ -18,15 +18,19 @@ class VerifyEmailController extends Controller
      */
     public function __invoke(EmailVerificationRequest $request)
     {
-        dd("here");
-        if ($request->user()->hasVerifiedEmail()) {
-            return Redirect::to($request->redirect_url);
+        if ($request->user->hasVerifiedEmail()) {
+            return $this->redirect($request, 'verified');
         }
 
-        if ($request->user()->markEmailAsVerified()) {
-            event(new Verified($request->user()));
+        if ($request->user->markEmailAsVerified()) {
+            return $this->redirect($request, 'verified');
         }
 
-        return redirect()->intended(RouteServiceProvider::HOME . '?verified=1');
+        return $this->redirect($request, 'failed');
+    }
+
+    public function redirect($request, $status)
+    {
+        return Redirect::to($request->redirect_url . '?status=' . $status);
     }
 }
