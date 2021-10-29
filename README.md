@@ -1,64 +1,89 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Laravel Backed Plastic Surgery Website
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> It's a horror stories web site where end user can share their stories. It's under development.
 
-## About Laravel
+## Built With
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+-   HTML, CSS, PHP, JavaScript, PostgreSQL
+-   Laravel, Next.js, React, Tailwind CSS
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   API: Laravel
+-   Client: Next.js
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Requirements
 
-## Learning Laravel
+Requirements:
+• It should have a separate rest API for using a mobile app as well.
+• User will have a profile picture
+• There will be a tracking system between users (following/following display user to choose)
+• There will be DM between users
+• Users will be able to comment and score stories
+• Users will be able to share two basic shares. One is Horror Story, the other ABC (entry). Stories will have no character limitations, but for ABCs, there will be a 160 character limit.
+• Anonymous non-user visitors can only see stories and comments. They won't be able to see the ABCs.
+• A scoring system based on story sharing and likes between users. Those with high scores will be able to become VIP users over time.
+• There will be five or six basic categories for stories.
+• Below the stories will be things like the number of reads, likes, and comments.
+• Users will have easy membership with Google.
+• It should have a good design.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Process
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- This project is under development. Currently finished authentication with Sanctum. It will have detailed documentation. Below is for giving info about authentication. 
 
-## Laravel Sponsors
+### Authentication routes:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- For same domain SPA's auth (Cookie based auth)
+- For cookie-based auth with sanctum app should send a pre-request to /sanctum/csrf-cookie endpoint to get XSRF-TOKEN cookie for using it on next requests.[Further Information ](https://laravel.com/docs/8.x/sanctum#spa-authentication)
 
-### Premium Partners
+    /register (POST)
+ For registering users. The request body must include: name, email, password, password_confirmation, redirect_url(API will send a confirmation email after registering users. So this URL is the redirection path when the user clicks to confirm the email.) The other params are self-explainer. It returns user information.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+    /login (POST)
+ The request body must include: email, password params. It returns user information.
 
-## Contributing
+    /logout (POST)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+ - For APP or SPA's on different domains (Token based auth): [Further Reading](https://laravel.com/docs/8.x/sanctum)
 
-## Code of Conduct
+    /api/register (POST)
+ For registering users. The request body must include: name, email, password, password_confirmation, redirect_url(API will send a confirmation email after registering users. So this URL is the redirection path when the user clicks to confirm the email.) The other params are self-explainer. It returns user information and token.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    /api/login (POST)
+ The request body should include: email, password params. It returns user information.
 
-## Security Vulnerabilities
+    /api/logout (POST)
+ It will delete the token.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Auth Routes: (User should login for using below requests. It means sending token information with request)
 
-## License
+    /api/user (GET)
+ It returns user information.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    /api/user/profile/image (POST)
+ For adding profile thumbnail. It will send a verification email to end user's email address. It returns original and manipulated image url information. The request body should include: `image` param. (FILE)
+
+    /api/email/verify (POST)
+ For verifying email. It will send a verification email to end user's email address.
+
+
+## Authors
+
+👤 **Emir Sağıt**
+
+-   GitHub: [@emirsagit](https://github.com/emirsagit)
+-   Twitter: [@emirsagit](https://twitter.com/emirsagit)
+-   LinkedIn: [Emir Sağıt](https://www.linkedin.com/in/emir-sa%C4%9F%C4%B1t-633035188/)
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the [issues page](../../issues/).
+
+## Show your support
+
+Give a ⭐️ if you like this project!
+
+## 📝 License
+
+This project is [MIT](./MIT.md) licensed.
