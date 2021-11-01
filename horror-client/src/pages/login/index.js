@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Layout } from "../../components";
 import { useContext } from "react";
-import Image from "next/image";
+import { NotificationContext } from "../../context/NotificationContext";
 import api from "../../utils/api";
 import { UserContext } from "../../context/UserContext";
 import { useErrorMessage } from "../../hooks";
@@ -9,6 +9,7 @@ import Link from "next/link";
 
 export default function Login() {
   const { setUser } = useContext(UserContext);
+  const { changeNotificationMessage } = useContext(NotificationContext);
 
   const formFields = { email: "", password: "" };
 
@@ -41,6 +42,7 @@ export default function Login() {
           })
           .then(({ data }) => {
             setUser(data.data);
+            changeNotificationMessage("Başarıyla giriş yaptınız");
           })
           .catch((error) => {
             handleErrorMessages(error.response.data.errors);

@@ -16,10 +16,10 @@ export default function VerificationLink() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 p-2 bg-gray-100 flex flex-col">
+    <div className="fixed bottom-0 left-0 right-0 p-4 bg-gray-100 flex flex-col">
       <p className="m-auto text-center max-w-32">Sitemizden yararlanmak için lütfen mail adresinizi onaylayın.</p>
       <button className="block text-blue-900 underline" onClick={handleClick} type="button">
-        Onaylama E-postası gönder
+        Onaylama E-postasını Tekrar gönder
       </button>
     </div>
   );

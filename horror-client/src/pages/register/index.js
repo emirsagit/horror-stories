@@ -47,7 +47,7 @@ export default function Register() {
           })
           .then(({ data }) => {
             setUser(data);
-            changeNotificationMessage("Hoşgeldiniz, mail adresinize üyeliğinizi onaylamak için mail gönderdik...");
+            changeNotificationMessage("Hoşgeldiniz, kayıt başarılı. Lütfen mail adresiniz onaylayın!", "caution");
           })
           .catch((error) => {
             handleErrorMessages(error.response.data.errors);

@@ -22,7 +22,7 @@ class UserResource extends JsonResource
             'updated_at' => $this->updated_at,
             'avatar_url' => $this->getFirstMediaUrl('avatars'),
             'avatar_thumb_url' => $this->getFirstMediaUrl('avatars', 'thumb'),
-            'isVerified' => $this->hasVerifiedEmail()
+            'is_verified' => $this->hasVerifiedEmail()
         ];
     }
 }

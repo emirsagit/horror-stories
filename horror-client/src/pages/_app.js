@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
   const [user, setUser] = useAuthUser();
   const [notificationMessage, notificationMessageType, changeNotificationMessage] = useNotification();
 
-  protectRoutes(pageProps, user);
+  protectRoutes(pageProps, user, changeNotificationMessage);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

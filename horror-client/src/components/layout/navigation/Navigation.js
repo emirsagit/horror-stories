@@ -11,7 +11,7 @@ export default function Navigation() {
   const [showLinks, setShowLinks] = useState(false);
   return (
     <>
-      {user ? !user.isVerified && <VerificationLink /> : ""}
+      {user ? !user.is_verified && <VerificationLink /> : ""}
       <header className="bg-white w-full fixed top-0 left-0 right-0 h-16">
         <nav className="flex flex-row justify-between items-center w-11/12 max-w-5xl mx-auto h-full text-gray-700">
           <button className="md:hidden" onClick={() => setShowLinks(true)}>
